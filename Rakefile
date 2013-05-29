@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Tweather::Application.load_tasks
+Twlistrails::Application.load_tasks
