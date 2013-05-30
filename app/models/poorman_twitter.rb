@@ -28,7 +28,7 @@ class PoormanTwitter
     make_request({ :endpoint => "statuses/home_timeline.json" })
   end
 
-  def followings(cursor = -1)
+  def followings(cursor)
     count = 100 # max 5000
     make_request({ :endpoint => "friends/ids.json?screen_name=phatograph&count=#{count}&cursor=#{cursor}" })
   end
@@ -43,6 +43,16 @@ class PoormanTwitter
       :endpoint => "statuses/update.json",
       :data => { :status => status }
     })
+  end
+
+  def lists_ownerships(user_id)
+    count = 1000
+    make_request({ :endpoint => "lists/ownerships.json?user_id=#{user_id}&count=#{count}" })
+  end
+
+  def lists_members(list_id, cursor)
+    puts "GET lists/members #{list_id} : #{cursor}"
+    make_request({ :endpoint => "lists/members.json?list_id=#{list_id}&cursor=#{cursor}&include_entities=false&skip_status=true" })
   end
 
   private

@@ -1,5 +1,11 @@
-%h2 Followings
+%h2{:style => 'text-align: center; padding: 20px'} Twlist
 
-%ul
-  %li
-    %a#usersFollowings{:href => users_followings_url(:format => :json)} more
+.row
+  .span6
+    %ul
+      %li
+        %a#usersFollowings{:href => users_followings_url(:format => :json)} more
+  .span6
+    %ul
+      %li
+        %a#listsOwnerships{:href => lists_ownerships_url(:format => :json)} more

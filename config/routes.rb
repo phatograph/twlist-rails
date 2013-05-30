@@ -3,6 +3,18 @@ Twlistrails::Application.routes.draw do
   get 'users/followings/(:cursor)' => 'home#users_followings',
     :as => 'users_followings'
 
+  get 'lists/ownerships/(:id)' => 'home#lists_ownerships',
+    :as => 'lists_ownerships'
+
+  get 'lists/members/:id/(:cursor)' => 'home#lists_members',
+    :as => 'lists_members'
+
+  get 'lists/members_all/:id' => 'home#lists_members_all',
+    :as => 'lists_members_all'
+
+  get 'list/:id' => 'home#list',
+    :as => 'list'
+
   root :to => 'home#index'
 
   # The priority is based upon order of creation:
