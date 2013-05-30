@@ -33,7 +33,7 @@ Twlistrails::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-  config.assets.debug = false
+  config.assets.debug = true
   config.log_level = :fatal
   # config.logger = Logger.new(STDOUT)
   $stdout.sync = true
