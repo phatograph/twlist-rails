@@ -1,5 +1,8 @@
 Twlistrails::Application.routes.draw do
 
+  get 'users/followings/(:cursor)' => 'home#users_followings',
+    :as => 'users_followings'
+
   root :to => 'home#index'
 
   # The priority is based upon order of creation:

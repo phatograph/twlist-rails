@@ -1,4 +1,6 @@
 class PoormanTwitter
+  TWITTER_API_ENDPOINT = 'https://api.twitter.com/1.1'
+
   def initialize
     consumer_key = ENV['CONSUMER_KEY']
     consumer_secret = ENV['CONSUMER_SECRET']
@@ -23,28 +25,42 @@ class PoormanTwitter
   end
 
   def home_timeline
-    res = @access_token.request(:get, "https://api.twitter.com/1.1/statuses/home_timeline.json")
-    # res.code
-    # res.message
-    # res.body
-    JSON.parse(res.body)
+    make_request({ :endpoint => "statuses/home_timeline.json" })
   end
 
   def followings(cursor = -1)
-    res = @access_token.request(:get, "https://api.twitter.com/1.1/friends/ids.json?screen_name=phatograph&count=10&cursor=#{cursor}")
-    JSON.parse(res.body)
+    count = 100 # max 5000
+    make_request({ :endpoint => "friends/ids.json?screen_name=phatograph&count=#{count}&cursor=#{cursor}" })
   end
 
   def users_lookup(user_id)
-    res = @access_token.request(:get, "https://api.twitter.com/1.1/users/lookup.json?user_id=#{user_id}")
-    JSON.parse(res.body)
+    make_request({ :endpoint => "users/lookup.json?user_id=#{user_id}" })
   end
 
   def statuses_update(status)
-    res = @access_token.request(:post, "https://api.twitter.com/1.1/statuses/update.json?", {
-      :status => status
+    make_request({
+      :method => :post,
+      :endpoint => "statuses/update.json",
+      :data => { :status => status }
+    })
+  end
+
+  private
+
+  def make_request(options)
+    options.reverse_merge!({
+      :method => :get
     })
 
+    res = @access_token.request(
+      options[:method],
+      "#{TWITTER_API_ENDPOINT}/#{options[:endpoint]}",
+      options[:data]
+    )
+
+    # res.code
+    # res.message
+    # res.body
     JSON.parse(res.body)
   end
 end
